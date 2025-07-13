@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Putratour.id – Mesin Pencari Wisata Dieng</title>
+  <meta name="description" content="Cari info wisata Dieng, tips, travel, review, hotel, destinasi di mesin pencari Putratour.id.">
+  <link rel="icon" type="image/png" href="https://www.putratour.id/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand: #6a1b9a;
+      --accent: #ffd600;
+      --text: #18244c;
+      --bg: #f7f8fa;
+      --card: #fff;
+      --shadow: 0 6px 30px #6a1b9a15;
+      --brand2: #45319f;
+    }
+    html,body {margin:0;padding:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:'Inter','Urbanist',Arial,sans-serif;}
+    body {display:flex;flex-direction:column;min-height:100vh;}
+    .search-headz {
+      width:100%;background:var(--card);box-shadow:var(--shadow);
+      padding:2.2vw 0 1vw 0;position:sticky;top:0;z-index:10;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      border-radius:0 0 1.7em 1.7em;
+    }
+    .brandz {
+      display:flex;align-items:center;gap:11px;font-family:'Urbanist';font-weight:900;
+      font-size:2.25rem;letter-spacing:-1.2px;margin-bottom:12px;
+      color:var(--brand2);text-shadow:0 1px 0 #fff,0 2px 8px #ffd60024;
+    }
+    .brandz svg {width:38px;height:38px;}
+    .searchbarz {
+      display:flex;align-items:center;gap:10px;width:100%;max-width:600px;
+      margin:0 auto;background:var(--bg);padding:5px 14px 5px 18px;border-radius:2em;box-shadow:0 2px 12px #6a1b9a09;
+      border:1.2px solid #e5e5f1;transition:box-shadow .13s,border .13s;box-sizing:border-box;position: relative;
+    }
+    .searchinputz {
+      flex:1 1 0;border:none;background:transparent;font-size:1.15em;padding:16px 8px 16px 0;font-family:inherit;outline:none;color:var(--text);}
+    .btn-searchz {
+      background: var(--brand);color:#fff;border:none;font-weight:800;border-radius:1.3em;padding:11px 24px 11px 20px;font-family:'Urbanist';
+      font-size:1.1em;cursor:pointer;transition:background .15s;min-width:60px;box-shadow:0 2px 4px #6a1b9a15;
+      display: flex;align-items: center;justify-content: center;gap:6px;
+    }
+    .btn-searchz:active,.btn-searchz:focus{background:var(--accent);color:var(--text);}
+    .clearz {
+      display:none;position:absolute;right:120px;top:9px;background:#fff;color:#adadad;border:none;font-size:1.35em;
+      border-radius:50%;width:32px;height:32px;cursor:pointer;box-shadow:0 1px 5px #6a1b9a12;transition:background .2s;z-index:2;
+      align-items:center;justify-content:center;
+    }
+    .clearz:hover {background: #ffe3f8;}
+    .popularz {
+      margin: 20px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      justify-content: center;
+      transition: all .18s;
+    }
+    .popularz .hotq {
+      background: #f5f0ff;
+      color: #6a1b9a;
+      border-radius: 1.2em;
+      padding: 8px 18px;
+      font-size: 1.05em;
+      cursor: pointer;
+      border: 1px solid #ede4ff;
+      transition: background .14s, color .13s;
+      box-shadow: 0 1px 5px #6a1b9a0c;
+      margin-bottom: 3px;
+      margin-right: 4px;
+    }
+    .popularz .hotq:hover {background: #ffd600;color: #18244c;}
+    .history-wrap {width:100%;text-align:center;margin:10px 0 2px 0;}
+    .history-wrap .title {font-size:1em;color:#574e90;margin-bottom:2px;}
+    .historyq {
+      background: #e9ebf7;
+      color: #332c6e;
+      border-radius: 1.2em;
+      padding: 8px 16px;
+      font-size: .97em;
+      cursor: pointer;
+      border: 1px solid #dbd6f3;
+      margin-bottom: 2px;
+      margin-right: 3px;
+      display:inline-block;
+      transition: background .13s, color .13s;
+    }
+    .historyq:hover {background:#ffd600;color: #18244c;}
+    .clear-history {
+      background: none;
+      color: #bba303;
+      border: none;
+      cursor: pointer;
+      font-size: .97em;
+      text-decoration: underline;
+      margin-left: 7px;
+    }
+    .resultsz {width:100%;max-width:800px;margin:0 auto;padding:36px 0 18px 0;}
+    .itemz {
+      background:var(--card);box-shadow:var(--shadow);border-radius:1.55em;
+      padding:23px 29px 15px 29px;margin-bottom:28px;animation:fadein .6s;
+      display:flex;flex-direction:column;gap:4px;position:relative;
+      border:1px solid #f0ebfd;
+      transition: box-shadow .18s, border .14s;
+    }
+    .itemz:hover {box-shadow:0 12px 32px #6a1b9a25;border-color:var(--accent);}
+    .itemz .urlz {font-size:.98em;color:#8b8bb8;margin-bottom:2px;overflow-wrap:break-word;}
+    .itemz .titlez {
+      font-size:1.23em;font-weight:900;color:var(--brand2);text-decoration:none;line-height:1.19;
+      margin-bottom: 4px;display:inline-block;transition:color .16s;
+    }
+    .itemz .titlez:hover {color:var(--accent);}
+    .itemz .desc {font-size:1.06em;color:#444;line-height:1.5;margin-top:2px;}
+    .itemz .fav {position:absolute;right:24px;top:22px;width:23px;height:23px;}
+    .itemz .actionz {margin-top:9px;display:flex;gap:11px;flex-wrap:wrap;}
+    .itemz .actionz button,
+    .itemz .actionz .wa-btn {
+      background: #f4f7fe;
+      color: #6a1b9a;
+      border: none;
+      padding: 6px 13px;
+      border-radius: 1.1em;
+      font-size: .98em;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 2px 4px #6a1b9a10;
+      transition: background .14s, color .13s;
+      outline: none;
+      display: flex;align-items:center;gap:6px;
+    }
+    .itemz .actionz button:hover,
+    .itemz .actionz .wa-btn:hover {background: #f7eaff; color: #1e2a58;}
+    .itemz .actionz .wa-btn svg {width:17px;height:17px;}
+    .noresultz {text-align:center;color:#c15e5e;font-size:1.22em;padding:52px 8px;}
+    .paginationz {text-align:center;margin:44px auto 12px auto;display:flex;justify-content:center;gap:8px;}
+    .paginationz button {
+      background:var(--card);color:var(--brand2);border:1.5px solid #eee;
+      padding:8px 19px;font-size:1.05em;border-radius:2em;cursor:pointer;font-family:inherit;box-shadow:0 1px 6px #6a1b9a09;
+      transition:background .14s,color .13s;
+    }
+    .paginationz button:disabled {background:#ececec;color:#bbb;cursor:not-allowed;}
+    .paginationz button.active {background:var(--brand2);color:#fff;}
+    @media (max-width:600px){
+      .brandz{font-size:1.8em;}
+      .brandz svg {width:32px;height:32px;}
+      .searchbarz{max-width:98vw;width:98vw;min-width:0;margin:0 1vw;padding:4px 5px 4px 11px;}
+      .clearz {right:120px;top:10px;width:28px;height:28px;font-size:1.05em;}
+      .popularz {gap:7px;margin:11px 0 0 0;}
+      .popularz .hotq, .historyq {padding:7px 13px;font-size:.98em;}
+      .resultsz{padding:16px 0 0 0;}
+      .itemz{padding:13px 8px 10px 8px;margin-bottom:17px;}
+      .itemz .fav {right:14px;top:15px;width:17px;height:17px;}
+    }
+    @keyframes fadein{from{opacity:0;transform:translateY(35px);}to{opacity:1;transform:translateY(0);}}
+    footer {margin-top:auto;text-align:center;color:#aaa;font-size:.98em;padding:24px 0 8px 0;}
+  </style>
+</head>
+<body>
+  <div class="search-headz">
+    <div class="brandz">
+      <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="20" fill="#fff" fill-opacity="0.18"/><path d="M8 28L18 15L24 23L29 18L35 28H8Z" fill="#ffd600"/><circle cx="18" cy="16" r="1.5" fill="#6a1b9a"/></svg>
+      Putratour.id
+    </div>
+    <form class="searchbarz" onsubmit="doSearch(event)">
+      <input type="text" class="searchinputz" id="qInput" placeholder="Cari apapun tentang Dieng..." autofocus autocomplete="off">
+      <button type="button" class="clearz" id="clearz" title="Bersihkan">&times;</button>
+      <button class="btn-searchz" id="searchBtn">
+        <span>Cari</span>
+        <svg width="18" height="18" viewBox="0 0 20 20" style="margin-left:5px" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="2"/><path d="M15 15L18.5 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+    <div id="popularz" class="popularz"></div>
+    <div id="historyz" class="history-wrap"></div>
+  </div>
+  <div class="resultsz" id="resultsz"></div>
+  <div class="paginationz" id="paginationz"></div>
+  <footer>
+    &copy; 2025 Putratour.id – Mesin Pencari Wisata. All rights reserved.
+  </footer>
+  <script>
+    // ===== DATA PENCARIAN =====
+const dummyResults = [
+  // ======================== GUIDE DIENG ========================
+  {
+    url: "https://www.putratour.id/guide-dieng/",
+    title: "Jasa Guide Dieng Profesional - Panduan Wisata Terlengkap",
+    desc: "Layanan guide lokal berpengalaman untuk wisata keluarga, rombongan, dan private. Pilih paket 1-3 hari sesuai kebutuhan tripmu ke Dieng.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/guide-dieng/pemandu-1-hari.html",
+    title: "Pemandu Dieng 1 Hari - Guide Lokal Untuk Trip Singkat",
+    desc: "Butuh guide wisata untuk trip satu hari di Dieng? Pilih layanan pemandu profesional, ramah, dan berpengetahuan luas.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/guide-dieng/pemandu-2-hari.html",
+    title: "Pemandu Dieng 2 Hari - Trip Jelajah Destinasi Favorit",
+    desc: "Paket guide Dieng 2 hari, rekomendasi untuk keluarga & rombongan yang ingin eksplorasi spot terbaik di Dieng Plateau.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/guide-dieng/pemandu-3-hari.html",
+    title: "Pemandu Dieng 3 Hari - Eksplorasi Wisata Dieng Maksimal",
+    desc: "Layanan pemandu wisata selama 3 hari, cocok untuk liburan panjang di Dieng. Itinerary lengkap dan fleksibel.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/guide-dieng/kontak.html",
+    title: "Kontak Guide Dieng - Booking & Konsultasi Trip",
+    desc: "Hubungi admin atau pemandu wisata Dieng untuk tanya harga, konsultasi, dan booking guide. Layanan fast response.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+
+  // ======================== PAKET WISATA DIENG ========================
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/",
+    title: "24+ Paket Wisata Dieng Terlengkap & Termurah",
+    desc: "Temukan semua paket tour Dieng 1-3 hari, pilihan keberangkatan dari Jogja, Wonosobo, Semarang, Solo, Purwokerto, dan kota lainnya. Harga jujur, itinerary fleksibel.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // 1 HARI / 2H1M / 3H2M dari berbagai kota
+  // JOGJA
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/jogja-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Jogja - Trip Hemat",
+    desc: "Tour Dieng dari Jogja, itinerary padat 1 hari, private trip, berangkat setiap hari. Harga murah & transparan.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/jogja-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Jogja",
+    desc: "Tour 2H1M Dieng dari Jogja, cocok untuk keluarga dan gathering, termasuk sunrise dan destinasi favorit.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/jogja-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Jogja",
+    desc: "Liburan panjang ke Dieng dari Jogja, durasi 3H2M, lengkap dengan penginapan dan fasilitas premium.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // SEMARANG
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/semarang-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Semarang",
+    desc: "Tour 1 hari ke Dieng dari Semarang, private trip, cocok untuk explore spot populer di waktu singkat.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/semarang-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Semarang",
+    desc: "Pilihan terbaik wisata keluarga atau rombongan dari Semarang ke Dieng, sudah termasuk penginapan.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/semarang-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Semarang",
+    desc: "Trip lengkap Semarang – Dieng 3H2M, fasilitas all-in dan itinerary full destinasi wisata favorit.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // SOLO
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/solo-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Solo",
+    desc: "Tour Dieng dari Solo, perjalanan pulang pergi 1 hari, cocok untuk keluarga, private, atau company trip.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/solo-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Solo",
+    desc: "Tour ke Dieng durasi 2 hari 1 malam dari Solo. Itinerary sunrise, kawah, dan destinasi hits lainnya.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/solo-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Solo",
+    desc: "Liburan Dieng 3 hari 2 malam dari Solo. Trip nyaman, lengkap dengan homestay dan driver ramah.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // WONOSOBO
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/wonosobo-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Wonosobo",
+    desc: "Tour 1 hari start Wonosobo, jelajahi Dieng dengan waktu efisien dan fasilitas terbaik.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/wonosobo-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Wonosobo",
+    desc: "Tour Dieng 2 hari 1 malam dari Wonosobo. Sunrise Sikunir, kawah, dan wisata andalan Dieng.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/wonosobo-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Wonosobo",
+    desc: "Tour lengkap dari Wonosobo ke Dieng selama 3 hari. Cocok untuk rombongan, keluarga, atau komunitas.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // PURWOKERTO
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/purwokerto-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Purwokerto",
+    desc: "Wisata Dieng start Purwokerto 1 hari, rekomendasi untuk group kecil maupun trip private.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/purwokerto-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Purwokerto",
+    desc: "Tour 2 hari 1 malam Dieng dari Purwokerto, semua tiket, makan & transportasi sudah termasuk.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/purwokerto-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Purwokerto",
+    desc: "Trip ke Dieng 3H2M dari Purwokerto, itinerary komplit plus akomodasi dan guide berpengalaman.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // MAGELANG
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/magelang-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Magelang",
+    desc: "Tour singkat ke Dieng start Magelang, cocok untuk explore wisata alam & sejarah.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/magelang-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Magelang",
+    desc: "Paket komplit 2 hari 1 malam dari Magelang, liburan santai dengan layanan terbaik.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/magelang-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Magelang",
+    desc: "Wisata Dieng start Magelang 3H2M. Semua destinasi utama & fasilitas sudah termasuk.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // CILACAP
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/cilacap-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Cilacap",
+    desc: "Tour harian ke Dieng dari Cilacap. Cocok untuk komunitas dan group kantor.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/cilacap-2h1m.html",
+    title: "Paket Dieng 2 Hari 1 Malam dari Cilacap",
+    desc: "Trip ke Dieng dari Cilacap, 2 hari 1 malam. Pilihan favorit wisata keluarga.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/cilacap-3h2m.html",
+    title: "Paket Dieng 3 Hari 2 Malam dari Cilacap",
+    desc: "Wisata Dieng dari Cilacap, durasi 3H2M, fasilitas lengkap untuk liburan asik.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // PEKALONGAN
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/pekalongan-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Pekalongan",
+    desc: "Paket wisata murah ke Dieng dari Pekalongan. Private, nyaman, dan full destinasi.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // TEGAL
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/tegal-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Tegal",
+    desc: "Tour harian Tegal ke Dieng, cocok untuk yang ingin short getaway tanpa ribet.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // BANJARNEGARA
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/banjarnegara-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Banjarnegara",
+    desc: "Nikmati trip satu hari ke Dieng dari Banjarnegara, itinerary ringkas & harga terjangkau.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // KEBUMEN
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/kebumen-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Kebumen",
+    desc: "Wisata murah ke Dieng dari Kebumen, cocok untuk keluarga dan group.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // PURBALINGGA
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/purbalingga-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Purbalingga",
+    desc: "Liburan singkat ke Dieng dari Purbalingga. Private trip, jadwal fleksibel.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  // BANYUMAS
+  {
+    url: "https://www.putratour.id/paket-wisata-dieng/banyumas-1h.html",
+    title: "Paket Wisata Dieng 1 Hari dari Banyumas",
+    desc: "Tour harian Banyumas – Dieng, itinerary padat, cocok untuk weekend.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+
+  // ======================== RENTAL MOBIL DIENG ========================
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/",
+    title: "Rental Mobil Dieng - Sewa Kendaraan Wisata Murah",
+    desc: "Sewa Avanza, Xenia, Innova untuk wisata ke Dieng. Sudah termasuk driver, BBM, dan fasilitas lengkap.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/jogja-dieng.html",
+    title: "Rental Mobil Jogja – Dieng",
+    desc: "Jasa rental mobil dari Jogja ke Dieng, perjalanan aman dan nyaman, booking mudah.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/wonosobo-dieng.html",
+    title: "Rental Mobil Wonosobo – Dieng",
+    desc: "Sewa mobil dari Wonosobo ke Dieng, unit bersih dan driver profesional.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/semarang-dieng.html",
+    title: "Rental Mobil Semarang – Dieng",
+    desc: "Perjalanan dari Semarang ke Dieng lebih mudah dengan jasa rental mobil all-in.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/purwokerto-dieng.html",
+    title: "Rental Mobil Purwokerto – Dieng",
+    desc: "Sewa mobil murah untuk wisata dari Purwokerto ke Dieng, booking bisa via WhatsApp.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/solo-dieng.html",
+    title: "Rental Mobil Solo – Dieng",
+    desc: "Rental mobil dari Solo ke Dieng, armada prima, pelayanan cepat & harga kompetitif.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  },
+  {
+    url: "https://www.putratour.id/rental-mobil-dieng/kontak.html",
+    title: "Kontak Rental Mobil Dieng",
+    desc: "Informasi, konsultasi, dan pemesanan rental mobil untuk perjalanan ke Dieng. Fast response.",
+    favicon: "https://www.putratour.id/favicon-32x32.png"
+  }
+];
+
+const popularQueries = [
+  "Paket Wisata Dieng",
+  "Paket Dieng 2 Hari 1 Malam",
+  "Paket wisata Dieng 1 Hari",
+  "Paket Dieng 3 Hari 2 Malam",
+  "Guide Dieng",
+  "Rental Mobil Dieng",
+];
+
+
+    // ========== KONFIG & HISTORY ==========
+    const resultsPerPage = 4;
+    let currentPage = 1, lastQuery = '';
+    const HISTORY_KEY = 'dieng_search_history';
+    function getHistory() {
+      let h = localStorage.getItem(HISTORY_KEY);
+      return h ? JSON.parse(h) : [];
+    }
+    function addHistory(q) {
+      q = q.trim();
+      if(!q) return;
+      let h = getHistory();
+      h = h.filter(x => x.toLowerCase() !== q.toLowerCase());
+      h.unshift(q);
+      if(h.length > 5) h = h.slice(0,5);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+    }
+    function clearHistory() {
+      localStorage.removeItem(HISTORY_KEY);
+      renderHistory();
+    }
+    function renderHistory() {
+      const historyz = document.getElementById('historyz');
+      const h = getHistory();
+      if (!h.length) {
+        historyz.innerHTML = '';
+        return;
+      }
+      historyz.innerHTML = `<div class="title">Riwayat Pencarian:
+        <button class="clear-history" onclick="clearHistory()">Hapus</button>
+        </div>` +
+        h.map(q => `<span class="historyq" onclick="pickHotQuery('${q.replace(/'/g,"\\'")}')">${q}</span>`).join('');
+      historyz.style.display = 'block';
+    }
+    window.clearHistory = clearHistory;
+
+    // ========== PENCARIAN ==========
+    function filterResults(q) {
+      q = q.trim().toLowerCase();
+      if (!q) return [];
+      let keywords = q.split(/\s+/);
+      return dummyResults.filter(item => {
+        let s = [item.title, item.desc, item.url].join(' ').toLowerCase();
+        return keywords.every(k => s.includes(k));
+      });
+    }
+    function showResults(q, page = 1) {
+      lastQuery = q;
+      const resultBox = document.getElementById('resultsz');
+      const pagBox = document.getElementById('paginationz');
+      resultBox.innerHTML = '';
+      pagBox.innerHTML = '';
+      if (!q) return;
+      const results = filterResults(q);
+      if (!results.length) {
+        resultBox.innerHTML = `<div class="noresultz">Tidak ada hasil ditemukan untuk <b>"${q}"</b>.</div>`;
+        return;
+      }
+      const totalPages = Math.ceil(results.length / resultsPerPage);
+      const start = (page - 1) * resultsPerPage;
+      const paged = results.slice(start, start + resultsPerPage);
+      resultBox.innerHTML = paged.map(r => `
+        <div class="itemz">
+          <img src="${r.favicon}" alt="Fav" class="fav">
+          <div class="urlz">${r.url}</div>
+          <a href="${r.url}" class="titlez" target="_blank" rel="noopener">${r.title}</a>
+          <div class="desc">${r.desc}</div>
+          <div class="actionz">
+            <button onclick="window.open('${r.url}','_blank')">Kunjungi</button>
+            <button onclick="navigator.clipboard.writeText('${r.url}');this.innerText='Tersalin!';setTimeout(()=>this.innerText='Salin Link',1200);">Salin Link</button>
+            <button class="wa-btn" onclick="shareWA('${r.title}','${r.url}')" title="Bagikan ke WhatsApp">
+              <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.74 19.962c-.376-.19-2.225-1.1-2.57-1.227-.346-.127-.6-.19-.853.19-.253.38-.98 1.227-1.2 1.48-.22.253-.44.285-.816.095-.376-.19-1.587-.584-3.025-1.86-1.118-.997-1.872-2.229-2.094-2.605-.22-.38-.024-.586.166-.777.17-.169.38-.44.568-.66.19-.22.253-.38.38-.632.126-.253.063-.475-.032-.664-.095-.19-.853-2.06-1.17-2.822-.31-.747-.62-.646-.853-.658l-.726-.013c-.22 0-.57.08-.868.38-.297.3-1.13 1.102-1.13 2.683 0 1.582 1.157 3.107 1.317 3.324.157.217 2.282 3.493 5.528 4.759.773.316 1.373.506 1.841.649.773.246 1.474.212 2.028.129.618-.093 1.91-.779 2.18-1.532.272-.753.272-1.397.19-1.532-.076-.135-.346-.22-.726-.409z" fill="#fff"/></svg>
+              WA
+            </button>
+          </div>
+        </div>
+      `).join('');
+      // pagination
+      if (totalPages > 1) {
+        for (let i = 1; i <= totalPages; i++) {
+          pagBox.innerHTML += `<button onclick="showResults('${q.replace(/'/g,"\\'")}',${i})" ${i==page?'class="active"':''}>${i}</button>`;
+        }
+      }
+    }
+
+    // ==== HOT QUERY & HISTORY HANDLING ====
+    function showPopularQueries() {
+      const pop = document.getElementById('popularz');
+      pop.innerHTML = `<div style="width:100%;text-align:center;font-size:1.09em;color:#574e90;margin-bottom:6px;">Pencarian Populer:</div>` +
+        popularQueries.map(q => `<span class="hotq" onclick="pickHotQuery('${q.replace(/'/g,"\\'")}')">${q}</span>`).join('');
+      pop.style.display = 'flex';
+      renderHistory();
+    }
+    window.pickHotQuery = function(q){
+      document.getElementById('qInput').value = q;
+      showClearBtn();
+      doSearch();
+      document.getElementById('qInput').focus();
+    }
+    function hidePopularQueries() {
+      document.getElementById('popularz').style.display = 'none';
+      document.getElementById('historyz').style.display = 'none';
+    }
+
+    // URL Query utils
+    function getQuery(){
+      const u = new URL(window.location.href);
+      return u.searchParams.get('q') || '';
+    }
+    function setQuery(q){
+      history.pushState({q:q}, '', '?q='+encodeURIComponent(q));
+    }
+
+    // SEO Dinamis
+    function setSEOTitle(q){
+      document.title = q
+        ? `Hasil "${q}" | Mesin Pencari Putratour.id`
+        : `Putratour.id – Mesin Pencari Wisata Dieng`;
+      document.querySelector('meta[name=description]').setAttribute('content',
+        q
+          ? `Hasil pencarian "${q}" seputar wisata Dieng: paket, destinasi, tips, review, penginapan, trip dan info terbaru.`
+          : `Cari semua info wisata Dieng, paket tour, tips liburan, hotel, destinasi, dan review terpercaya di mesin pencari Putratour.id.`
+      );
+    }
+
+    // URL <-> input sync
+    function syncInput(){
+      let q = getQuery();
+      document.getElementById('qInput').value = q;
+      showClearBtn();
+      showResults(q);
+      setSEOTitle(q);
+      if(q) hidePopularQueries(); else { showPopularQueries(); }
+    }
+    window.onpopstate = syncInput;
+
+    // Search submit
+    function doSearch(e){
+      if(e) e.preventDefault();
+      const q = document.getElementById('qInput').value.trim();
+      setQuery(q);
+      showResults(q, 1);
+      setSEOTitle(q);
+      if(q) {
+        addHistory(q);
+        hidePopularQueries();
+      } else {
+        showPopularQueries();
+      }
+    }
+
+    // Autofocus + load dari URL jika ada
+    window.onload = function(){
+      let q = getQuery();
+      document.getElementById('qInput').value = q;
+      showClearBtn();
+      if(q) {
+        showResults(q,1);
+        setSEOTitle(q);
+        hidePopularQueries();
+      } else {
+        showPopularQueries();
+        setSEOTitle('');
+      }
+      setTimeout(()=>{document.getElementById('qInput').focus();},180);
+    };
+
+    // Tekan ENTER pada input = submit
+    document.getElementById('qInput').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') { doSearch(e); }
+    });
+
+    // CLEAR BUTTON LOGIC
+    const qInput = document.getElementById('qInput');
+    const clearBtn = document.getElementById('clearz');
+    function showClearBtn(){
+      clearBtn.style.display = qInput.value ? 'flex' : 'none';
+    }
+    qInput.addEventListener('input', function(){
+      showClearBtn();
+      if(!qInput.value) {
+        document.getElementById('resultsz').innerHTML = '';
+        document.getElementById('paginationz').innerHTML = '';
+        setSEOTitle('');
+        setQuery('');
+        showPopularQueries();
+      }
+    });
+    clearBtn.addEventListener('click',function(){
+      qInput.value = '';
+      showClearBtn();
+      qInput.focus();
+      document.getElementById('resultsz').innerHTML = '';
+      document.getElementById('paginationz').innerHTML = '';
+      setSEOTitle('');
+      setQuery('');
+      showPopularQueries();
+    });
+    showClearBtn();
+
+    // === SHARE TO WHATSAPP ===
+    window.shareWA = function(title, url){
+      let text = `Lihat info ini di Putratour.id:\n${title}\n${url}`;
+      let waUrl = "https://wa.me/?text=" + encodeURIComponent(text);
+      window.open(waUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
